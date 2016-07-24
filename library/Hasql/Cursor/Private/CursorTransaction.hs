@@ -58,7 +58,8 @@ fetchBatch (Cursor name) batchSize decoder =
   A.query (batchSize, name) (B.fetchFromCursor_decoder decoder)
 
 -- |
--- Lift a transaction.
+-- Lift a standard transaction.
+-- Note that the transaction must not execute other CursorTransactions.
 liftTransaction :: A.Transaction result -> CursorTransaction s result
 liftTransaction =
   CursorTransaction . lift
