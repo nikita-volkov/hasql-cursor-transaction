@@ -1,7 +1,14 @@
 module Hasql.Cursor.Transactions
 (
-  cursorQuery,
+  A.cursorQuery,
+  cursorSession,
 )
 where
 
-import Hasql.Cursor.Private.Transactions
+import qualified Hasql.Cursor.Private.Transactions as A
+import qualified Hasql.Cursor.Private.CursorSession as B
+
+-- |
+-- Executes CursorSession in Transaction.
+cursorSession =
+  B.run
