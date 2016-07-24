@@ -2,6 +2,8 @@ module Hasql.Cursor.CursorTransaction
 (
   CursorTransaction,
   Cursor,
+  EncodedParams,
+  encodedParams,
   withCursor,
   fetchBatch,
   liftTransaction,
