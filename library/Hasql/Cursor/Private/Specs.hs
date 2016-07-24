@@ -57,3 +57,16 @@ instance Applicative ReducingDecoder where
 data BatchSize =
   BatchSize_10 | BatchSize_100 | BatchSize_1000 | BatchSize_10000
   deriving (Enum, Bounded)
+
+
+-- |
+-- A parameters encoder immediately supplied with parameters.
+newtype EncodedParams =
+  EncodedParams (Supplied A.Params)
+  deriving (Monoid)
+
+-- |
+-- Pack the params encoder and params into EncodedParams.
+encodedParams :: A.Params params -> params -> EncodedParams
+encodedParams encoder params =
+  EncodedParams (Supplied encoder params)

@@ -22,18 +22,6 @@ newtype CursorTransaction s result =
 newtype Cursor s =
   Cursor ByteString
 
--- |
--- A parameters encoder immediately supplied with parameters.
-newtype EncodedParams =
-  EncodedParams (Supplied D.Params)
-  deriving (Monoid)
-
--- |
--- Pack the params encoder and params into EncodedParams.
-encodedParams :: D.Params params -> params -> EncodedParams
-encodedParams encoder params =
-  EncodedParams (Supplied encoder params)
-
 declareCursor :: ByteString -> D.Params params -> params -> CursorTransaction s (Cursor s)
 declareCursor template encoder params =
   CursorTransaction $
@@ -54,8 +42,8 @@ closeCursor (Cursor name) =
 -- Given a template, encoded params and a Cursor-handling continuation,
 -- executes it,
 -- while automatically declaring and closing the cursor behind the scenes.
-withCursor :: ByteString -> EncodedParams -> (forall s. Cursor s -> CursorTransaction s result) -> CursorTransaction s result
-withCursor template (EncodedParams (Supplied encoder params)) continuation =
+withCursor :: ByteString -> G.EncodedParams -> (forall s. Cursor s -> CursorTransaction s result) -> CursorTransaction s result
+withCursor template (G.EncodedParams (Supplied encoder params)) continuation =
   do
     cursor <- declareCursor template encoder params
     result <- continuation cursor
