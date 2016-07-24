@@ -1,4 +1,4 @@
-module Hasql.Cursor.Private.CursorSession
+module Hasql.Cursor.Private.CursorTransaction
 where
 
 import Hasql.Cursor.Private.Prelude
@@ -13,8 +13,8 @@ import qualified ByteString.TreeBuilder as E
 
 -- |
 -- Context for fetching from multiple cursors in an intertwined fashion.
-newtype CursorSession s result =
-  CursorSession (StateT Int A.Transaction result)
+newtype CursorTransaction s result =
+  CursorTransaction (StateT Int A.Transaction result)
   deriving (Functor, Applicative, Monad)
 
 -- |
@@ -22,9 +22,9 @@ newtype CursorSession s result =
 newtype Cursor s =
   Cursor ByteString
 
-declareCursor :: ByteString -> D.Params params -> params -> CursorSession s (Cursor s)
+declareCursor :: ByteString -> D.Params params -> params -> CursorTransaction s (Cursor s)
 declareCursor template encoder params =
-  CursorSession $
+  CursorTransaction $
   do
     name <- fmap name (state ((,) <$> id <*> succ))
     lift (C.declareCursor name template encoder params)
@@ -32,9 +32,9 @@ declareCursor template encoder params =
   where
     name inc =
       E.toByteString $
-      E.byteString "Hasql.Cursor.CursorSession." <> E.asciiIntegral inc
+      E.byteString "Hasql.Cursor.CursorTransaction." <> E.asciiIntegral inc
 
-closeCursor :: Cursor s -> CursorSession s ()
+closeCursor :: Cursor s -> CursorTransaction s ()
 closeCursor (Cursor name) =
   liftTransaction (C.closeCursor name)
 
@@ -42,7 +42,7 @@ closeCursor (Cursor name) =
 -- Given a template, a params encoder, params and a Cursor-handling continuation,
 -- executes it,
 -- while automatically declaring and closing the cursor behind the scenes.
-withCursor :: ByteString -> D.Params params -> params -> (forall s. Cursor s -> CursorSession s result) -> CursorSession s result
+withCursor :: ByteString -> D.Params params -> params -> (forall s. Cursor s -> CursorTransaction s result) -> CursorTransaction s result
 withCursor template encoder params continuation =
   do
     cursor <- declareCursor template encoder params
@@ -52,17 +52,17 @@ withCursor template encoder params continuation =
 
 -- |
 -- Fetch from a cursor a batch of the given size and decode it using the specified result decoder.
-fetchBatch :: Cursor s -> G.BatchSize -> F.Result result -> CursorSession s result
+fetchBatch :: Cursor s -> G.BatchSize -> F.Result result -> CursorTransaction s result
 fetchBatch (Cursor name) batchSize decoder =
   liftTransaction $
   A.query (batchSize, name) (B.fetchFromCursor_decoder decoder)
 
 -- |
 -- Lift a transaction.
-liftTransaction :: A.Transaction result -> CursorSession s result
+liftTransaction :: A.Transaction result -> CursorTransaction s result
 liftTransaction =
-  CursorSession . lift
+  CursorTransaction . lift
 
-run :: (forall s. CursorSession s result) -> A.Transaction result
-run (CursorSession stack) =
+run :: (forall s. CursorTransaction s result) -> A.Transaction result
+run (CursorTransaction stack) =
   evalStateT stack 1
