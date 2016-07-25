@@ -36,12 +36,8 @@ fetchFromCursor_decoder decoder =
         batchSize =
           contramap batchSizeToInt64 B.int8
           where
-            batchSizeToInt64 =
-              \case
-                F.BatchSize_10 -> 10
-                F.BatchSize_100 -> 100
-                F.BatchSize_1000 -> 1000
-                F.BatchSize_10000 -> 10000
+            batchSizeToInt64 (F.BatchSize a) =
+              a
 
 fetchFromCursor_foldl :: (b -> a -> b) -> b -> C.Row a -> A.Query (F.BatchSize, ByteString) b
 fetchFromCursor_foldl step init rowDec =

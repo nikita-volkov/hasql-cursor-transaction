@@ -41,14 +41,3 @@ declareCursor cursorName template paramsEncoder params =
 closeCursor :: ByteString -> C.Transaction ()
 closeCursor cursorName =
   C.query cursorName A.closeCursor
-
--- |
--- Executes CursorQuery in Transaction provided the parameters.
-cursorQuery :: params -> B.CursorQuery params result -> C.Transaction result
-cursorQuery params (B.CursorQuery template encoder (B.ReducingDecoder rowDecoder rowsFold) batchSize) =
-  declareCursor cursorName template encoder params *>
-  fetchAndFoldCursor cursorName batchSize rowDecoder rowsFold <*
-  closeCursor cursorName
-  where
-    cursorName =
-      "Hasql.CursorTransaction"

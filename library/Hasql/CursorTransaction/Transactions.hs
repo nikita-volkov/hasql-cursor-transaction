@@ -1,6 +1,5 @@
 module Hasql.CursorTransaction.Transactions
 (
-  A.cursorQuery,
   cursorSession,
 )
 where
