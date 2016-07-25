@@ -49,6 +49,7 @@ library
     Hasql.CursorTransaction.Private.CursorTransaction
   exposed-modules:
     Hasql.CursorTransaction.Transactions
+    Hasql.CursorTransaction.Sessions
     Hasql.CursorTransaction.Specs
     Hasql.CursorTransaction
   build-depends:
