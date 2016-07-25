@@ -50,7 +50,7 @@ library
   exposed-modules:
     Hasql.CursorTransaction.Transactions
     Hasql.CursorTransaction.Specs
-    Hasql.CursorTransaction.CursorTransaction
+    Hasql.CursorTransaction
   build-depends:
     -- database:
     hasql >= 0.19 && < 0.20,

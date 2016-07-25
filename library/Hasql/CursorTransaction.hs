@@ -1,4 +1,4 @@
-module Hasql.CursorTransaction.CursorTransaction
+module Hasql.CursorTransaction
 (
   CursorTransaction,
   Cursor,
