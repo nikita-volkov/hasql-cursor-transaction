@@ -1,6 +1,6 @@
 module Hasql.CursorTransaction.Transactions
 (
-  cursorSession,
+  cursorTransaction,
 )
 where
 
@@ -9,5 +9,5 @@ import qualified Hasql.CursorTransaction.Private.CursorTransaction as B
 
 -- |
 -- Executes CursorTransaction in Transaction.
-cursorSession =
+cursorTransaction =
   B.run
