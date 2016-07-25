@@ -7,22 +7,30 @@ import qualified Hasql.Decoders as B
 
 
 -- |
--- Spefifies how many rows to fetch in a single DB rountrip.
+-- Spefifies how many rows to fetch in a single DB roundtrip.
 newtype BatchSize =
   BatchSize Int64
 
+-- |
+-- Batch size of 10.
 batchSize_10 :: BatchSize
 batchSize_10 =
   BatchSize 10
 
+-- |
+-- Batch size of 100.
 batchSize_100 :: BatchSize
 batchSize_100 =
   BatchSize 100
 
+-- |
+-- Batch size of 1000.
 batchSize_1000 :: BatchSize
 batchSize_1000 =
   BatchSize 1000
 
+-- |
+-- Batch size of 10000.
 batchSize_10000 :: BatchSize
 batchSize_10000 =
   BatchSize 10000
