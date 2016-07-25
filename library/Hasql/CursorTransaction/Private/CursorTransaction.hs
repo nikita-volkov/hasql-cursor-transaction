@@ -5,7 +5,6 @@ import Hasql.CursorTransaction.Private.Prelude
 import qualified Hasql.Transaction as A
 import qualified Hasql.Encoders as D
 import qualified Hasql.Decoders as F
-import qualified Hasql.CursorTransaction.Private.Queries as B
 import qualified Hasql.CursorTransaction.Private.Transactions as C
 import qualified Hasql.CursorTransaction.Private.Specs as G
 import qualified ByteString.TreeBuilder as E
@@ -32,7 +31,7 @@ declareCursor template encoder params =
   where
     name inc =
       E.toByteString $
-      E.byteString "Hasql.CursorTransaction.CursorTransaction." <> E.asciiIntegral inc
+      E.byteString "Hasql_CursorTransaction_" <> E.asciiIntegral inc
 
 closeCursor :: Cursor s -> CursorTransaction s ()
 closeCursor (Cursor name) =
@@ -54,8 +53,7 @@ withCursor template (G.EncodedParams (Supplied encoder params)) continuation =
 -- Fetch from a cursor a batch of the given size and decode it using the specified result decoder.
 fetchBatch :: Cursor s -> G.BatchSize -> F.Result result -> CursorTransaction s result
 fetchBatch (Cursor name) batchSize decoder =
-  liftTransaction $
-  A.query (batchSize, name) (B.fetchFromCursor_decoder decoder)
+  liftTransaction (C.fetchFromCursor name batchSize decoder)
 
 -- |
 -- Lift a standard transaction.

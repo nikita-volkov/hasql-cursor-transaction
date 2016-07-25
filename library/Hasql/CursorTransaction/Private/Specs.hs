@@ -4,7 +4,6 @@ where
 import Hasql.CursorTransaction.Private.Prelude
 import qualified Hasql.Encoders as A
 import qualified Hasql.Decoders as B
-import qualified Control.Foldl as D
 
 
 -- |
