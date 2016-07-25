@@ -65,4 +65,4 @@ library
     transformers >= 0.3 && < 0.6,
     -- general:
     base-prelude >= 0.1.19 && < 2,
-    base >= 4.8 && < 5
+    base >= 4.6 && < 5
