@@ -35,7 +35,7 @@ declareCursor template encoder params =
 
 closeCursor :: Cursor s -> CursorTransaction s ()
 closeCursor (Cursor name) =
-  liftTransaction (C.closeCursor name)
+  transaction (C.closeCursor name)
 
 -- |
 -- Given a template, encoded params and a Cursor-handling continuation,
@@ -53,13 +53,13 @@ withCursor template (G.EncodedParams (Supplied encoder params)) continuation =
 -- Fetch from a cursor a batch of the given size and decode it using the specified result decoder.
 fetchBatch :: Cursor s -> G.BatchSize -> F.Result result -> CursorTransaction s result
 fetchBatch (Cursor name) batchSize decoder =
-  liftTransaction (C.fetchFromCursor name batchSize decoder)
+  transaction (C.fetchFromCursor name batchSize decoder)
 
 -- |
 -- Lift a standard transaction.
 -- Note that the transaction must not execute other CursorTransactions.
-liftTransaction :: A.Transaction result -> CursorTransaction s result
-liftTransaction =
+transaction :: A.Transaction result -> CursorTransaction s result
+transaction =
   CursorTransaction . lift
 
 run :: (forall s. CursorTransaction s result) -> A.Transaction result

@@ -4,7 +4,7 @@ module Hasql.CursorTransaction
   Cursor,
   withCursor,
   fetchBatch,
-  liftTransaction,
+  transaction,
 )
 where
 
