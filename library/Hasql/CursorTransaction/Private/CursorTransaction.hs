@@ -1,13 +1,13 @@
-module Hasql.Cursor.Private.CursorTransaction
+module Hasql.CursorTransaction.Private.CursorTransaction
 where
 
-import Hasql.Cursor.Private.Prelude
+import Hasql.CursorTransaction.Private.Prelude
 import qualified Hasql.Transaction as A
 import qualified Hasql.Encoders as D
 import qualified Hasql.Decoders as F
-import qualified Hasql.Cursor.Private.Queries as B
-import qualified Hasql.Cursor.Private.Transactions as C
-import qualified Hasql.Cursor.Private.Specs as G
+import qualified Hasql.CursorTransaction.Private.Queries as B
+import qualified Hasql.CursorTransaction.Private.Transactions as C
+import qualified Hasql.CursorTransaction.Private.Specs as G
 import qualified ByteString.TreeBuilder as E
 
 
@@ -32,7 +32,7 @@ declareCursor template encoder params =
   where
     name inc =
       E.toByteString $
-      E.byteString "Hasql.Cursor.CursorTransaction." <> E.asciiIntegral inc
+      E.byteString "Hasql.CursorTransaction.CursorTransaction." <> E.asciiIntegral inc
 
 closeCursor :: Cursor s -> CursorTransaction s ()
 closeCursor (Cursor name) =

@@ -1,9 +1,9 @@
-module Hasql.Cursor.Private.Transactions
+module Hasql.CursorTransaction.Private.Transactions
 where
 
-import Hasql.Cursor.Private.Prelude
-import qualified Hasql.Cursor.Private.Queries as A
-import qualified Hasql.Cursor.Private.Specs as B
+import Hasql.CursorTransaction.Private.Prelude
+import qualified Hasql.CursorTransaction.Private.Queries as A
+import qualified Hasql.CursorTransaction.Private.Specs as B
 import qualified Hasql.Transaction as C
 import qualified Hasql.Decoders as E
 import qualified Hasql.Encoders as F
@@ -51,4 +51,4 @@ cursorQuery params (B.CursorQuery template encoder (B.ReducingDecoder rowDecoder
   closeCursor cursorName
   where
     cursorName =
-      "Hasql.Cursor"
+      "Hasql.CursorTransaction"

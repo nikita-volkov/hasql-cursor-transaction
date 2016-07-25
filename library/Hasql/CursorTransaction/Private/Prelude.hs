@@ -1,4 +1,4 @@
-module Hasql.Cursor.Private.Prelude
+module Hasql.CursorTransaction.Private.Prelude
 ( 
   module Exports,
   Supplied(..),

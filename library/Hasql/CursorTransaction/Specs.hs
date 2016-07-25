@@ -1,6 +1,6 @@
 -- |
 -- A DSL for declaring the specs.
-module Hasql.Cursor.Specs
+module Hasql.CursorTransaction.Specs
 (
   CursorQuery(..),
   ReducingDecoder(..),
@@ -10,5 +10,5 @@ module Hasql.Cursor.Specs
 )
 where
 
-import Hasql.Cursor.Private.Specs
+import Hasql.CursorTransaction.Private.Specs
 
