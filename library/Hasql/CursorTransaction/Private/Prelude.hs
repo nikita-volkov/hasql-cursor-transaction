@@ -22,18 +22,10 @@ import Control.Monad.Trans.State.Strict as Exports hiding (liftCatch, liftListen
 import Control.Monad.Trans.Writer.Strict as Exports hiding (liftCallCC, liftCatch)
 import Data.Functor.Identity as Exports
 
--- profunctors
--------------------------
-import Data.Profunctor.Unsafe as Exports
-
 -- contravariant
 -------------------------
 import Data.Functor.Contravariant as Exports
 import Data.Functor.Contravariant.Divisible as Exports
-
--- contravariant-extras
--------------------------
-import Contravariant.Extras as Exports
 
 -- bytestring
 -------------------------
