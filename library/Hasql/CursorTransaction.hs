@@ -6,7 +6,7 @@ module Hasql.CursorTransaction
   B.BatchSize,
   B.EncodedParams,
   -- * Cursor Transactions
-  A.withCursor,
+  A.declareCursor,
   A.fetchBatch,
   A.transaction,
   -- * Batch Sizes
