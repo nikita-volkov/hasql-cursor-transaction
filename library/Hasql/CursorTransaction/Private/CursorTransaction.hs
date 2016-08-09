@@ -21,8 +21,8 @@ newtype CursorTransaction s result =
 newtype Cursor s =
   Cursor ByteString
 
-declareCursor :: ByteString -> D.Params params -> params -> CursorTransaction s (Cursor s)
-declareCursor template encoder params =
+declareCursor :: ByteString -> G.EncodedParams -> CursorTransaction s (Cursor s)
+declareCursor template (G.EncodedParams (Supplied encoder params)) =
   CursorTransaction $
   do
     name <- fmap name (state ((,) <$> id <*> succ))
@@ -42,9 +42,9 @@ closeCursor (Cursor name) =
 -- executes it,
 -- while automatically declaring and closing the cursor behind the scenes.
 withCursor :: ByteString -> G.EncodedParams -> (forall s. Cursor s -> CursorTransaction s result) -> CursorTransaction s result
-withCursor template (G.EncodedParams (Supplied encoder params)) continuation =
+withCursor template params continuation =
   do
-    cursor <- declareCursor template encoder params
+    cursor <- declareCursor template params
     result <- continuation cursor
     closeCursor cursor
     return result
