@@ -1,7 +1,6 @@
 module Hasql.CursorTransaction.Private.Prelude
 ( 
   module Exports,
-  Supplied(..),
 )
 where
 
@@ -27,27 +26,10 @@ import Data.Functor.Identity as Exports
 import Data.Functor.Contravariant as Exports
 import Data.Functor.Contravariant.Divisible as Exports
 
+-- contravariant-extras
+-------------------------
+import Contravariant.Extras as Exports
+
 -- bytestring
 -------------------------
 import Data.ByteString as Exports (ByteString)
-
--- Custom
--------------------------
-
--- |
--- A combination of a divisible functor with some input for it.
--- Allows to use the 'Monoid' API for composition.
-data Supplied divisible =
-  forall input. Supplied !(divisible input) !input
-
-instance Divisible divisible => Monoid (Supplied divisible) where
-  mempty =
-    Supplied conquer ()
-  mappend (Supplied divisible1 input1) (Supplied divisible2 input2) =
-    Supplied divisible3 input3
-    where
-      divisible3 =
-        divide id divisible1 divisible2
-      input3 =
-        (input1, input2)
-
