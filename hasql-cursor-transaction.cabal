@@ -1,7 +1,7 @@
 name:
   hasql-cursor-transaction
 version:
-  0.6
+  0.6.1
 category:
   Hasql, Database, PostgreSQL, Streaming
 synopsis:
@@ -54,7 +54,7 @@ library
   build-depends:
     -- database:
     hasql >= 0.19 && < 0.20,
-    hasql-transaction >= 0.4.5.1 && < 0.5,
+    hasql-transaction >= 0.5 && < 0.6,
     -- data:
     bytestring-tree-builder == 0.2.*,
     bytestring >= 0.10 && < 0.11,
