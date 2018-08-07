@@ -40,7 +40,7 @@ batchSize_10000 =
 -- A parameters encoder immediately supplied with parameters.
 newtype EncodedParams =
   EncodedParams (Supplied A.Params)
-  deriving (Monoid)
+  deriving (Semigroup, Monoid)
 
 -- |
 -- Pack the params encoder and params into EncodedParams.
