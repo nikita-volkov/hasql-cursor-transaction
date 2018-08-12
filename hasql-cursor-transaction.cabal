@@ -27,7 +27,7 @@ library
     Hasql.CursorTransaction.Sessions
     Hasql.CursorTransaction
   build-depends:
-    base >=4.6 && <5,
+    base >=4.9 && <5,
     base-prelude >=1 && <2,
     bytestring >=0.10 && <0.11,
     bytestring-tree-builder ==0.2.*,
