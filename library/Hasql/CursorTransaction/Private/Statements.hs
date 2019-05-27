@@ -11,7 +11,7 @@ import qualified ByteString.TreeBuilder as D
 
 declareCursor :: ByteString -> ByteString -> B.Params a -> Statement a ()
 declareCursor name sql encoder =
-  Statement sql' encoder C.unit False
+  Statement sql' encoder C.noResult False
   where
     sql' =
       D.toByteString $
@@ -19,7 +19,7 @@ declareCursor name sql encoder =
 
 closeCursor :: ByteString -> Statement () ()
 closeCursor name =
-  Statement sql B.unit C.unit True
+  Statement sql B.noParams C.noResult True
   where
     sql =
       "CLOSE " <> name
@@ -32,4 +32,4 @@ fetchFromCursor name (F.BatchSize batchSize) decoder =
       D.toByteString $
       "FETCH FORWARD " <> D.asciiIntegral batchSize <> " FROM " <> D.byteString name
     encoder =
-      B.unit
+      B.noParams
