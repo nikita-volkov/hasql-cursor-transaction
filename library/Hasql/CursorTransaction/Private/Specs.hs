@@ -1,15 +1,13 @@
-module Hasql.CursorTransaction.Private.Specs
-where
+module Hasql.CursorTransaction.Private.Specs where
 
 import Hasql.CursorTransaction.Private.Prelude
-import qualified Hasql.Encoders as A
 import qualified Hasql.Decoders as B
-
+import qualified Hasql.Encoders as A
 
 -- |
 -- Spefifies how many rows to fetch in a single DB roundtrip.
-newtype BatchSize =
-  BatchSize Int64
+newtype BatchSize
+  = BatchSize Int64
 
 -- |
 -- Batch size of 10.
@@ -35,11 +33,10 @@ batchSize_10000 :: BatchSize
 batchSize_10000 =
   BatchSize 10000
 
-
 -- |
 -- A parameters encoder immediately supplied with parameters.
-newtype EncodedParams =
-  EncodedParams (Supplied A.Params)
+newtype EncodedParams
+  = EncodedParams (Supplied A.Params)
   deriving (Semigroup, Monoid)
 
 -- |

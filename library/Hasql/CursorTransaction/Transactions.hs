@@ -1,11 +1,10 @@
 module Hasql.CursorTransaction.Transactions
-(
-  cursorTransaction,
-)
+  ( cursorTransaction,
+  )
 where
 
-import qualified Hasql.CursorTransaction.Private.Transactions as A
 import qualified Hasql.CursorTransaction.Private.CursorTransaction as B
+import qualified Hasql.CursorTransaction.Private.Transactions as A
 
 -- |
 -- Executes CursorTransaction in Transaction.
