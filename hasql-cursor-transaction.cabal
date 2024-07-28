@@ -65,7 +65,7 @@ library
     Hasql.CursorTransaction.Transactions
 
   build-depends:
-    base >=4.9 && <5,
+    base >=4.14 && <5,
     base-prelude >=1 && <2,
     bytestring >=0.10 && <0.14,
     bytestring-tree-builder ^>=0.2,
