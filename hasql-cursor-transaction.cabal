@@ -1,6 +1,6 @@
 cabal-version: 3.0
 name: hasql-cursor-transaction
-version: 0.6.5
+version: 0.6.5.1
 category: Hasql, Database, PostgreSQL, Streaming
 synopsis: An abstraction for simultaneous fetching from multiple PostgreSQL cursors
 homepage: https://github.com/nikita-volkov/hasql-cursor-transaction
@@ -65,12 +65,12 @@ library
     Hasql.CursorTransaction.Transactions
 
   build-depends:
-    base >=4.9 && <5,
+    base >=4.14 && <5,
     base-prelude >=1 && <2,
     bytestring >=0.10 && <0.14,
-    bytestring-tree-builder >=0.2 && <0.3,
+    bytestring-tree-builder ^>=0.2,
     contravariant >=1.5 && <2,
-    contravariant-extras >=0.3.5.4 && <0.4,
-    hasql ^>=1.6.4.1,
+    contravariant-extras ^>=0.3.5.4,
+    hasql ^>=1.8,
     hasql-transaction ^>=1.1,
     transformers >=0.4 && <0.7,
