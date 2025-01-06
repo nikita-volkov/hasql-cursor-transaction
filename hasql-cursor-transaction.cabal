@@ -71,6 +71,6 @@ library
     bytestring-tree-builder ^>=0.2,
     contravariant >=1.5 && <2,
     contravariant-extras ^>=0.3.5.4,
-    hasql ^>=1.8,
+    hasql >=1.8 && <1.10,
     hasql-transaction ^>=1.1,
     transformers >=0.4 && <0.7,
