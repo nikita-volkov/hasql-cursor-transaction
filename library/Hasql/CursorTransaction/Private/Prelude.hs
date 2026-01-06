@@ -14,6 +14,7 @@ import Control.Monad.Trans.Reader as Exports hiding (liftCallCC)
 import Control.Monad.Trans.State.Strict as Exports hiding (liftCatch, liftListen, liftPass)
 import Control.Monad.Trans.Writer.Strict as Exports hiding (liftCallCC, liftCatch)
 import Data.ByteString as Exports (ByteString)
+import Data.Text as Exports (Text)
 import Data.Functor.Contravariant as Exports
 import Data.Functor.Contravariant.Divisible as Exports
 import Data.Functor.Identity as Exports
