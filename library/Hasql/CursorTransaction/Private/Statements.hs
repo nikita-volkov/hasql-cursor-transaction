@@ -1,39 +1,37 @@
 module Hasql.CursorTransaction.Private.Statements where
 
-import qualified ByteString.TreeBuilder as D
+import qualified Data.Text as Text
 import Hasql.CursorTransaction.Private.Prelude
 import qualified Hasql.CursorTransaction.Private.Specs as F
 import qualified Hasql.Decoders as C
 import qualified Hasql.Encoders as B
 import Hasql.Statement
 
-declareCursor :: ByteString -> ByteString -> B.Params a -> Statement a ()
+declareCursor :: Text -> Text -> B.Params a -> Statement a ()
 declareCursor name sql encoder =
-  Statement sql' encoder C.noResult False
+  unpreparable sql' encoder C.noResult
   where
     sql' =
-      D.toByteString
-        $ "DECLARE "
-        <> D.byteString name
+      "DECLARE "
+        <> name
         <> " NO SCROLL CURSOR FOR "
-        <> D.byteString sql
+        <> sql
 
-closeCursor :: ByteString -> Statement () ()
+closeCursor :: Text -> Statement () ()
 closeCursor name =
-  Statement sql B.noParams C.noResult True
+  preparable sql B.noParams C.noResult
   where
     sql =
       "CLOSE " <> name
 
-fetchFromCursor :: ByteString -> F.BatchSize -> C.Result result -> Statement () result
+fetchFromCursor :: Text -> F.BatchSize -> C.Result result -> Statement () result
 fetchFromCursor name (F.BatchSize batchSize) decoder =
-  Statement sql encoder decoder True
+  preparable sql encoder decoder
   where
     sql =
-      D.toByteString
-        $ "FETCH FORWARD "
-        <> D.asciiIntegral batchSize
+      "FETCH FORWARD "
+        <> Text.pack (show batchSize)
         <> " FROM "
-        <> D.byteString name
+        <> name
     encoder =
       B.noParams

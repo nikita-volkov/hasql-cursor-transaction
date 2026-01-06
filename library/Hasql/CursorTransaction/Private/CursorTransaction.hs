@@ -1,11 +1,10 @@
 module Hasql.CursorTransaction.Private.CursorTransaction where
 
-import qualified ByteString.TreeBuilder as E
+import qualified Data.Text as Text
 import Hasql.CursorTransaction.Private.Prelude
 import qualified Hasql.CursorTransaction.Private.Specs as G
 import qualified Hasql.CursorTransaction.Private.Transactions as C
 import qualified Hasql.Decoders as F
-import qualified Hasql.Encoders as D
 import qualified Hasql.Transaction as A
 
 -- |
@@ -17,12 +16,12 @@ newtype CursorTransaction s result
 -- |
 -- Cursor reference.
 newtype Cursor s
-  = Cursor ByteString
+  = Cursor Text
 
 -- |
 -- Given a template and encoded params produces a cursor,
 -- while automating its resource management.
-declareCursor :: ByteString -> G.EncodedParams -> CursorTransaction s (Cursor s)
+declareCursor :: Text -> G.EncodedParams -> CursorTransaction s (Cursor s)
 declareCursor template (G.EncodedParams (Supplied encoder params)) =
   CursorTransaction
     $ do
@@ -35,9 +34,7 @@ declareCursor template (G.EncodedParams (Supplied encoder params)) =
       return (Cursor name)
   where
     incToName inc =
-      E.toByteString
-        $ E.byteString "Hasql_CursorTransaction_"
-        <> E.asciiIntegral inc
+      "Hasql_CursorTransaction_" <> Text.pack (show inc)
 
 -- |
 -- Fetch from a cursor a batch of the given size and decode it using the specified result decoder.
