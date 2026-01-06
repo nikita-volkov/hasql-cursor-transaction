@@ -5,7 +5,6 @@ import Hasql.CursorTransaction.Private.Prelude
 import qualified Hasql.CursorTransaction.Private.Specs as G
 import qualified Hasql.CursorTransaction.Private.Transactions as C
 import qualified Hasql.Decoders as F
-import qualified Hasql.Encoders as D
 import qualified Hasql.Transaction as A
 
 -- |

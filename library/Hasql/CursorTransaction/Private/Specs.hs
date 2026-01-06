@@ -1,7 +1,6 @@
 module Hasql.CursorTransaction.Private.Specs where
 
 import Hasql.CursorTransaction.Private.Prelude
-import qualified Hasql.Decoders as B
 import qualified Hasql.Encoders as A
 
 -- |

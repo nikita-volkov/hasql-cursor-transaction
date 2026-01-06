@@ -4,7 +4,6 @@ module Hasql.CursorTransaction.Sessions
 where
 
 import qualified Hasql.CursorTransaction.Private.CursorTransaction as A
-import Hasql.CursorTransaction.Private.Prelude
 import qualified Hasql.Session as C
 import qualified Hasql.Transaction.Sessions as D
 
